@@ -4,7 +4,7 @@ const log = require('electron-log')
 
 
 log.transports.file.resolvePath=()=> __dirname + '/logs/log.log'
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 
 const isDev = process.env.NODE_ENV !== 'production' ? true : false
 const isMac = process.platform === 'darwin' ? true : false
