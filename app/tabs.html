@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+  <title>electron-tabs-demo</title>
+</head>
+
+<body style="margin:0">
+
+  <tab-group new-tab-button="true" sortable="true">
+    <style>
+      /* Add custom styles */
+      .my-badge {
+        background-color: #327BB1;
+      }
+
+      .my-custom-tab {
+        color: #d135d1;
+        font-style: italic;
+        font-weight: bold;
+      }
+    </style>
+  </tab-group>
+
+  <script src="../node_modules/electron-tabs/dist/electron-tabs.js"></script>
+ 
+  <script>
+    const tabGroup = document.querySelector("tab-group");
+    tabGroup.on("ready", () => console.info("TabGroup is ready"));
+
+
+    tabGroup.setDefaultTab({
+      title: "Wikipedia",
+      src: "https://www.wikipedia.org/",
+      active: true,
+      ready: () => console.info("New Tab is ready"),
+
+    });
+
+    tabGroup.addTab({
+      title: "Electron Demo App",
+      src: "./index.html",
+      ready: function (tab) {
+        tab.element.classList.add("my-custom-tab");
+      },
+      webviewAttributes: {
+        nodeIntegration: true
+      }
+    });
+
+     tabGroup.addTab({
+      title: "PopUP Page",
+      src: "./html/popup.html",
+      ready: function (tab) {
+        tab.element.classList.add("my-custom-tab");
+      },
+      webviewAttributes: {
+        nodeIntegration: true
+      }
+    });
+
+    tabGroup.addTab({
+      title: "Editor Page",
+      src: "./html/editor.html",
+      ready: function (tab) {
+        tab.element.classList.add("my-custom-tab");
+      },
+      webviewAttributes: {
+        nodeIntegration: true
+      }
+    });
+
+    tabGroup.addTab({
+      title: "electron-tabs on NPM",
+      src: "https://www.npmjs.com/package/electron-tabs",
+      badge: {
+        text: "5",
+        classname: "my-badge"
+      }
+    });
+
+    tabGroup.addTab({
+      title: "electron-tabs on Github",
+      src: "https://github.com/brrd/electron-tabs",
+      active: true,
+    });
+  </script>
+</body>
+
+</html>

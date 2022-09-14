@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+  <link rel="stylesheet" href="css/style.css">
+  <title>Electron Demo App</title>
+</head>
+
+<body>
+  <div>
+    <h1>Hey there, Welcome to the demo app</h1>
+    <p>Click on the button below to create a form !</p>
+    <button id="btn">Click Me</button>
+    <div class="formDown">
+
+    </div>
+  </div>
+  <script>
+    const { ipcRenderer, dialog } = require('electron')
+    var btn = document.getElementById('btn')
+    var br = document.createElement("br")
+
+
+    btn.addEventListener('click', e => {
+
+      e.preventDefault()
+
+      var form = document.createElement("form")
+      form.setAttribute("method", "post");
+
+
+      //input element for Full Name
+      var FN = document.createElement("input");
+      FN.setAttribute("type", "text");
+      FN.setAttribute("name", "FullName");
+      FN.setAttribute("placeholder", "Full Name");
+
+      //input element for date of birth
+      var DOB = document.createElement("input");
+      DOB.setAttribute("type", "text");
+      DOB.setAttribute("name", "dob");
+      DOB.setAttribute("placeholder", "DOB");
+
+      // input element for emailID
+      var EID = document.createElement("input");
+      EID.setAttribute("type", "text");
+      EID.setAttribute("name", "emailID");
+      EID.setAttribute("placeholder", "E-Mail ID");
+
+      //input element for password
+      var PWD = document.createElement("input");
+      PWD.setAttribute("type", "password");
+      PWD.setAttribute("name", "password");
+      PWD.setAttribute("placeholder", "Password");
+
+      // input element for retype-password
+      var RPWD = document.createElement("input");
+      RPWD.setAttribute("type", "password");
+      RPWD.setAttribute("name", "reTypePassword");
+      RPWD.setAttribute("placeholder", "ReEnter Password");
+
+      // submit button
+      var s = document.createElement("input");
+      s.setAttribute("type", "submit");
+      s.setAttribute("value", "Submit");
+      s.setAttribute("id", "submitBtn")
+
+      // Append the full name input to the form
+      form.appendChild(FN);
+
+      // Inserting a line break
+      form.appendChild(br.cloneNode());
+
+      // Append the DOB to the form
+      form.appendChild(DOB);
+      form.appendChild(br.cloneNode());
+
+      // Append the emailID to the form
+      form.appendChild(EID);
+      form.appendChild(br.cloneNode());
+
+      // Append the Password to the form
+      form.appendChild(PWD);
+      form.appendChild(br.cloneNode());
+
+      // Append the ReEnterPassword to the form
+      form.appendChild(RPWD);
+      form.appendChild(br.cloneNode());
+
+      // Append the submit button to the form
+      form.appendChild(s);
+
+      document.getElementsByClassName("formDown")[0]
+        .appendChild(form);
+
+      var submitBtn = document.getElementById("submitBtn")
+
+      submitBtn.addEventListener('click', e => {
+        ipcRenderer.send("btnPressed")
+      })
+
+    })
+  </script>
+
+</body>
+
+</html>
